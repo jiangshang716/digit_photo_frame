@@ -4,7 +4,7 @@
 
 
 CC	= gcc
-CFLAGS	= -Wall 
+CFLAGS	= -Wall -I/usr/include/freetype2
 LDFLAGS	= -lm -ljpeg -lpthread -lfreetype 
 
 OBJECT	= $(wildcard *.c)
