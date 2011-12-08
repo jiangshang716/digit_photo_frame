@@ -4,20 +4,30 @@
 
 
 CC	= gcc
-CFLAGS	= -Wall -I/usr/include/freetype2
+CFLAGS	= -Wall
 LDFLAGS	= -lm -ljpeg -lpthread -lfreetype 
 
-OBJECT	= $(wildcard *.c)
-OBJECT_H = $(wildcard *.h)
-
+OBJECTS	= $(patsubst %.c,%.o,$(wildcard *.c))
 
 all: photo.out
 
-photo.out: $(OBJECT) $(OBJECT_H)
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(OBJECT)
+%.o:%.c
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+%.d:%.c
+	@set -e; \
+	  rm -f $@; \
+          $(CC) -M -MM $(CFLAGS) $< > $@.$$$$; \
+          sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; \
+          rm -f $@.$$$$
+
+-include $(patsubst %.c,%.d,$(wildcard *.c))
+
+photo.out: $(OBJECTS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
 
 
 .PHONY: clean
 
 clean:
-	rm -f *.o *~ photo.out
+	rm -f *.o *.d *~ photo.out
