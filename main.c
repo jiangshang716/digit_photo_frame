@@ -37,6 +37,7 @@ void init()
 	weather_getinfo(weather_info, 10);
 }
 
+int main(int argc, char **argv)
 {
 	int flag = 1;
 
