@@ -1,7 +1,6 @@
 #include "framebuffer.h"
 #include "pixel.h"
 
-
 /*
  * Set pixel attr
  */
@@ -19,16 +18,15 @@ int fb_set_pixel(FB_POINT *point, int x, int y, COLOR_32 color)
  */
 int fb_draw_pixel(Tframebuffer *fbp, FB_POINT *point)
 {
-	unsigned char *p;	/* point framebuffer (x, y) pixel */
+	unsigned char *p;
 	unsigned long locate;
 
 	/* over screen resolution */
-	if(point->x < 0 || point->x >= fbp->fb_vinfo.xres){
+	if(point->x < 0 || point->x >= fbp->fb_vinfo.xres)
 		return 1;
-	}
-	if(point->y < 0 || point->y >= fbp->fb_vinfo.yres){
+
+	if(point->y < 0 || point->y >= fbp->fb_vinfo.yres)
 		return 1;
-	}
 
 	locate = (point->y * fbp->fb_vinfo.xres + point->x) 
 		* fbp->fb_vinfo.bits_per_pixel / 8;
@@ -82,12 +80,11 @@ int fb_draw_pixel_screen_trans(Tframebuffer *screenp, FB_POINT *point)
 	unsigned char *q;
 
 	/* over screen resolution */
-	if(point->x < 0 || point->x >= screenp->fb_vinfo.xres){
+	if(point->x < 0 || point->x >= screenp->fb_vinfo.xres)
 		return 1;
-	}
-	if(point->y < 0 || point->y >= screenp->fb_vinfo.yres){
+
+	if(point->y < 0 || point->y >= screenp->fb_vinfo.yres)
 		return 1;
-	}
 
 	locate = (point->y * screenp->fb_vinfo.xres + point->x) 
 		* (screenp->fb_vinfo.bits_per_pixel >> 3);
@@ -122,6 +119,5 @@ unsigned long fb_formatRGB(unsigned char red, unsigned char green, unsigned char
 	color = (color << 0) | red;
 	color = (color << 8) | green;
 	color = (color << 8) | blue;
-//	fprintf(stdout, "%#08lx\n", color);
 	return color;
 }
