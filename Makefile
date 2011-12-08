@@ -14,7 +14,7 @@ OBJECT_H = $(wildcard *.h)
 all: photo.out
 
 photo.out: $(OBJECT) $(OBJECT_H)
-	$(CC) $(CFLAGS) -o $@ $(OBJECT)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(OBJECT)
 
 
 .PHONY: clean
