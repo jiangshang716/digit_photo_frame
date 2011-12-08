@@ -3,11 +3,11 @@
 # License GPLv3 or later, NO WARRANTY.
 
 
-CC	= gcc
-CFLAGS	= -Wall
-LDFLAGS	= -lm -ljpeg -lpthread -lfreetype 
+CC	?= gcc
+CFLAGS	:= $(CFLAGS) -Wall
+LDFLAGS	+= -lm -ljpeg -lpthread -lfreetype 
 
-OBJECTS	= $(patsubst %.c,%.o,$(wildcard *.c))
+OBJECTS	+= $(patsubst %.c,%.o,$(wildcard *.c))
 
 all: photo.out
 
